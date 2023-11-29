@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slider1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/slider_login_1.png",
+            "heading": "Elevate Your Wardrobe",
+            "tag": "Shop Our Trendy Fashion",
+            "button_label": "Go To Catalog",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slider2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/slider_login_2.png",
+            "heading": "Step Into Style",
+            "tag": "Discover Our Latest Collection",
+            "button_label": "Go To Catalog",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "slider3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/slider_login_1.png",
+            "heading": "Elevate Your Wardrobe",
+            "tag": "Shop Our Trendy Fashion",
+            "button_label": "Go To Catalog",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+    "block_order": ["slider1", "slider2", "slider3"]
+    },
+    "banners": {
+      "type": "banners",
+      "blocks": {
+        "banner1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/9487df77c5115e54f86bbe21c718c871.jpg",
+            "title": "Leaning In",
+            "button_label": "Shop Dresses",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "banner2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/da53d18d2f57a5e0fd31ac2bc561a668.jpg",
+            "title": "All Over Velvet",
+            "button_label": "Shop Back-In-Stock",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": ["banner1", "banner2"],
+      "settings": {
+        "product_category": "Parks and Recreation",
+        "product_category_url": "shopify:\/\/collections\/all",
+        "product_category_label": "Shop New"
+      }
+    },
+    "our-products": {
+      "type": "our-products",
+      "settings": {
+        "title": "Featured",
+        "collection": "all",
+        "button_label": "& More New",
+        "button_url": "shopify:\/\/collections\/all"
+      }
+    }
+  },
+  "order": ["slideshow", "banners", "our-products"]
+}

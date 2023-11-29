@@ -1,0 +1,58 @@
+<!-- Navigation -->
+<ul class="header__nav d-none d-lg-flex">
+  {% if section.settings.menu.links == blank %}
+    {% assign main_menu_linklist = linklists[section.settings.desktop_linklist].links %}
+  {% else %}
+    {% assign main_menu_linklist = section.settings.desktop_linklist.links %}
+  {% endif %}
+  {% for link in main_menu_linklist %}
+    {% if link.links != blank %}
+      <li>
+        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        <!-- MegaMenu -->
+        <div class="nav__mega-menu">
+          <ul class="mega-menu__links">
+            {% for childlink in link.links %}
+              {% if childlink.links != blank %}
+                <li class="mega-menu__childlinks">
+                  <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                  <ul>
+                    {% for subchildlink in childlink.links %}
+                      <li>
+                        <a href="{{ subchildlink.url }}">{{ subchildlink.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          {% if section.settings.banner_status == true %}
+            <!-- Banner -->
+            <div class="mega-menu__banner">
+              <img
+                alt="Image"
+                data-sizes="auto"
+                data-srcset="{{ section.settings.banner_image | img_url: '2000x' }} 362w"
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                class="lazyload"
+              >
+              <a href="{{ section.settings.banner_url }}">{{ section.settings.banner_title }}</a>
+            </div>
+            <!-- End banner -->
+          {% endif %}
+        </div>
+        <!-- End MegaMenu -->
+      </li>
+    {% else %}
+      <li>
+        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+<!-- End navigation -->

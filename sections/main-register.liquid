@@ -1,0 +1,84 @@
+<!-- Login -->
+<div class="login">
+  <!-- Container -->
+  <div class="login__container">
+    <!-- Login heading -->
+    <h1 class="login__title">New customers</h1>
+    <p class="login__description">Create an account below</p>
+    <!-- End login heading -->
+    <!-- Login form -->
+    {% form 'create_customer' %}
+      <!-- Error -->
+      {%- if form.errors -%}
+        <div class="alert login__alert alert-danger">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+      <!-- End error -->
+      <!-- Login inputs -->
+      <div class="login__inputs">
+        <!-- Form group -->
+        <div class="form-group">
+          <label for="first_name" class="form-group__label"> First Name </label>
+          <input
+            type="text"
+            class="form-group__input"
+            name="customer[first_name]"
+            id="first_name"
+            placeholder="first name"
+          >
+        </div>
+        <!-- End form group -->
+        <!-- Form group -->
+        <div class="form-group">
+          <label for="last_name" class="form-group__label"> Last Name </label>
+          <input
+            type="text"
+            class="form-group__input"
+            name="customer[last_name]"
+            id="last_name"
+            placeholder="last name"
+          >
+        </div>
+        <!-- End form group -->
+        <!-- Form group -->
+        <div class="form-group required {% if form.errors contains 'email' %} has-error {% endif %}">
+          <label for="email_address" class="form-group__label"> Email Address </label>
+          <input
+            type="email"
+            class="form-group__input"
+            name="customer[email]"
+            id="email_address"
+            required="required"
+            placeholder="your@email.com"
+          >
+        </div>
+        <!-- End form group -->
+        <!-- Form group -->
+        <div class="form-group required {% if form.errors contains 'password' %} has-error {% endif %}">
+          <label for="password" class="form-group__label"> Password </label>
+          <input
+            type="password"
+            class="form-group__input"
+            id="password"
+            name="customer[password]"
+            required="required"
+          >
+          {% render 'eye-icon' %}
+        </div>
+        <!-- End form group -->
+      </div>
+      <!-- End login inputs -->
+      <!-- Actions -->
+      <div class="login__action">
+        <div class="login__button">
+          <input type="submit" class="button" value="Create an account">
+        </div>
+      </div>
+      <!-- End actions -->
+    {% endform %}
+    <!-- End login form -->
+  </div>
+  <!-- End container -->
+</div>
+<!-- End login -->

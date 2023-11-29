@@ -1,0 +1,97 @@
+<!-- Search popup -->
+<div class="search-popup js-search-popup">
+  <!-- Search close -->
+  <div class="search-popup__close">
+    <a href="#" class="js-close-search-popup">{% render 'close-icon' %}</a>
+  </div>
+  <!-- Container -->
+  <div class="search-popup_container">
+    <!-- Search form -->
+    <form class="search-popup__form" action="/search">
+      <!-- Search input -->
+      <input
+        type="text"
+        class="search-popup__input"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="Search..."
+      >
+      <!-- End search input -->
+    </form>
+    <!-- End search form -->
+  </div>
+  <!-- End container -->
+</div>
+<!-- End search popup -->
+
+<script type="text/javascript">
+  $(function () {
+    // Current Ajax request.
+    var currentAjaxRequest = null;
+    // Grabbing all search forms on the page, and adding a .search-results list to each.
+    var searchForms = $('form[action="/search"]')
+      .css('position', 'relative')
+      .each(function () {
+        // Grabbing text input.
+        var input = $(this).find('input[name="q"]');
+        // Adding a list for showing search results.
+        var offSet = input.position().top + input.innerHeight();
+        $('<div class="search-popups__results"></div>').appendTo($(this)).hide();
+        // Listening to keyup and change on the text field within these search forms.
+        input.attr('autocomplete', 'off').bind('keyup change', function () {
+          // What's the search term?
+          var term = $(this).val();
+          // What's the search form?
+          var form = $(this).closest('form');
+          // What's the search URL?
+          var searchURL = '/search?type=product&q=' + term;
+          // What's the search results list?
+          var resultsList = form.find('.search-popups__results');
+          // If that's a new term and it contains at least 3 characters.
+
+          if (term.length > 3 && term != $(this).attr('data-old-term')) {
+            // Saving old query.
+            $(this).attr('data-old-term', term);
+            // Killing any Ajax request that's currently being processed.
+            if (currentAjaxRequest != null) currentAjaxRequest.abort();
+            // Pulling results.
+            currentAjaxRequest = $.getJSON(searchURL + '&view=json', function (data) {
+              // Reset results.
+              resultsList.empty();
+              // If we have no results.
+              if (data.results_count == 0) {
+                resultsList.hide();
+              } else {
+                // If we have results.
+                var products = '';
+                $.each(data.results, function (index, item) {
+                  products +=
+                    '<div class="result-product"><div class="result-product__image"><a href="' +
+                    item.url +
+                    '"><img src="' +
+                    item.thumbnail +
+                    '" alt="Product image" /></a></div><div class="result-product__name"><a href="' +
+                    item.url +
+                    '">' +
+                    item.title +
+                    '</a></div><div class="result-product__price">' +
+                    item.price +
+                    '</div></div>';
+                });
+                resultsList.append('<div class="search-popups__results-products">' + products + '</div>');
+                // The Ajax request will return at the most 10 results.
+                resultsList.append(
+                  '<div class="search-popup__results-action"><a href="' +
+                    searchURL +
+                    '" class="fifth-button">Show all results (' +
+                    data.results_count +
+                    ')</a> </div>'
+                );
+                resultsList.fadeIn(200);
+              }
+            });
+          }
+        });
+      });
+  });
+</script>

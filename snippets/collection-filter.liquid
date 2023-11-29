@@ -1,0 +1,92 @@
+<!-- Filter -->
+<div class="top-filter {% if sidebar == true %}top-filter--left-column{% endif %} js-top-filter">
+  <!-- Close background -->
+  <div class="top-filter__close-background js-close-filter"></div>
+  <!-- End close background -->
+  <!-- Background -->
+  <div class="top-filter__background">
+    <!-- Close -->
+    <div class="top-filter__close">
+      <a href="#" class="js-close-filter"><i class="lnil lnil-close"></i></a>
+    </div>
+    <!-- End close - -->
+    <!-- Row -->
+    <div class="row">
+      {% if settings.filtering_nav == true %}
+        <!-- Widget -->
+        <div class="col-12 col-md-6 col-lg-25">
+          <div class="top-filter__widget">
+            <!-- Title -->
+            <h2 class="widget__title">{{ settings.filtering_nav_heading }}</h2>
+            <!-- End title -->
+            <!-- Collections -->
+            <ul class="widget__collections">
+              {% for link in linklists[settings.filtering_linklist].links %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+            <!-- End collections -->
+          </div>
+        </div>
+        <!-- End widget -->
+      {% endif %}
+      {%- for i in (1..10) -%}
+        {%- assign tmp = 'filtering_' | append: i -%}
+        {%- if settings[tmp] -%}
+          {%- assign tmp = 'filtering_heading_' | append: i -%}
+          {%- assign cat_item = settings[tmp] -%}
+          {%- assign cat_item_down = cat_item | downcase | replace: ' ', '_' -%}
+          {%- assign tmp = 'filtering_filters_' | append: i -%}
+          {%- assign filters = settings[tmp] | strip_newlines | split: ',' -%}
+          {%- assign status = 'true' -%}
+          {%- assign collections = 'filtering_filters_hide_' | append: i -%}
+          {%- assign collections_items = settings[collections] | split: ', ' %}
+          {%- for collection_item in collections_items -%}
+            {% if collection_item == collection.title %}
+              {%- assign status = 'false' %}
+            {% endif %}
+          {%- endfor -%}
+          {% if status == 'true' %}
+            <!-- Widget -->
+            <div class="col-12 col-md-6 col-lg-25">
+              <div class="top-filter__widget">
+                <!-- Title -->
+                <h2 class="widget__title">{{ cat_item }}</h2>
+                <!-- End title -->
+                <!-- Options -->
+                <ul class="widget__checkbox-options">
+                  {%- for custom_tag in filters -%}
+                    {% assign current_tag = custom_tag | handleize %}
+                    <!-- Option -->
+                    <li>
+                      <label for="{{ cat_item_down }}_{{ custom_tag | handleize }}">
+                        <input
+                          id="{{ cat_item_down }}_{{ custom_tag | handleize }}"
+                          type="checkbox"
+                          value="{{ custom_tag | handleize }}"
+                          class="tag checkbox"
+                          {% if current_tags contains current_tag %}
+                            checked="checked"
+                          {% endif %}
+                        >
+                        <span>{{ custom_tag }}</span>
+                      </label>
+                    </li>
+                    <!-- End option -->
+                  {%- endfor -%}
+                </ul>
+                <!-- End options -->
+              </div>
+            </div>
+            <!-- End Widget -->
+          {% endif %}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <!-- End row -->
+  </div>
+  <!-- End background -->
+</div>
+<!-- End filter -->

@@ -1,0 +1,454 @@
+/* ==========================================================================
+   #ACCOUNT
+========================================================================== */
+
+
+.account__d-flex, .row.addressess {
+    @media (max-width: 991px) {
+        flex-direction: column;
+    }
+}
+
+.account__d-flex {
+    @media (max-width: 991px) {
+       position: relative; 
+    }
+}
+
+
+.account__left {
+
+    width: 270px;
+
+    @media (max-width: 991px) {
+        width: 100%;
+    }
+
+}
+
+.account__nav {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 28px;
+    background: #F7F7F7;
+
+        @media (max-width: 991px) {
+            text-align: center;
+        }
+
+    li {
+        display: block;
+        position: relative;
+        width: 100%;
+        padding: 17px 0 17px 57px;
+
+            @media (max-width: 991px) {
+                display: flex;
+            }
+
+        a {
+           font-family: Mulish;
+           font-size: 15px;
+           font-weight: 400;
+           color: #000; 
+           text-decoration: none;
+        }
+
+    }
+
+    .account__nav--icon {
+        position: absolute;
+        left: 26px;
+        top: 50%;
+        transform: translateY(-50%);
+
+            @media (max-width: 991px) {
+                position: auto;
+            }
+    }
+
+}
+
+
+.account__nav li.active {
+    background: #EDECEC;
+
+        a {
+            font-weight: 700;
+        }
+}
+
+.account__left-contact {
+    padding: 25px 24px 20px 29px;
+    width: 100%;
+    border: 1px solid #D9D9D9;
+
+        @media (max-width: 991px) {
+            margin-bottom: 35px;
+        }
+
+    h4 {
+        font-family: Ovo;
+        font-size: 18px;
+        color: #000;
+        font-weight: 400;
+    }
+
+    p {
+        font-family: Mulish;
+        font-size: 13px;
+        font-weight: 400;
+        color: #5E5E5E;
+        margin: 0;
+        padding: 18px 0 60px 0;
+        border-top: 1px solid #D9D9D9;
+    }
+
+    button {
+        border: 1px solid #000;
+        width: 100%;
+        background: #fff;
+
+        a {
+            display: block;
+            text-decoration: none;
+            line-height: 46px;
+            width: 100%;
+            font-family: Mulish;
+            font-size: 14px;
+            color:#000
+        }
+    }
+}
+
+.account__right-addresses {
+    flex: 1;
+    padding: 0 105px 0 32px;
+        @media (max-width: 991px) {
+            padding: 0;
+        }
+
+}
+
+.account__heading {
+
+    margin-bottom: 32px;
+    font-family: Ovo;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+
+}
+
+.address {
+
+    h5 {
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+        font-family: Ovo;
+        font-weight: 400;
+        font-size: 18px;
+        color: #000;
+        border-bottom: 1px solid #D9D9D9;
+    }
+}
+
+.address__content {
+    margin-bottom: 18px;
+    background: #F9F9F9;
+    padding: 22px 31px;
+    font-family: Mulish;
+    font-size: 15px;
+    font-weight: 400;
+    color: #5E5E5E;
+
+        @media (max-width:991px) {
+            padding: 26px 9px 26px 22px;
+            width: 100%;
+            font-size: 13px;
+        }
+}
+.address__action {
+    list-style: none;
+    padding: 0;
+    display: flex;
+
+        a {
+            text-decoration: none;
+            color: #3C5B96;
+        }
+
+        .delete-action {
+            color: #828282;
+        }
+
+}
+
+.address__action li:first-child {
+    padding-right: 10px;
+    position: relative;
+}
+
+.address__action li:first-child::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    height: 11px;
+    width: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #828282;
+}
+
+.address__action li:last-child {
+    padding-left: 10px;
+}
+
+.addressess .col-6 {
+    @media (max-width: 991px) {
+        width: 100%;
+    }
+}
+
+.account__right-orders {
+    flex: 1;
+    padding: 0 0 0 32px;
+
+     @media (max-width: 991px) {
+        padding: 0;
+     }
+
+}
+
+.account__right-orders .empty-orders {
+    
+    @media (max-width: 991px) {
+        margin-bottom: 37px;
+    }
+
+    p {
+        font-family: Mulish;
+        font-size: 16px;
+        margin-bottom: 31px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid #D9D9D9;
+        width: 100%;
+
+         @media (max-width: 991px) {
+            padding-bottom: 17px;
+         }
+    }
+
+    a {
+        display: block;
+        width: 264px;
+        line-height: 46px;
+        background: #000;
+        color: #fff;
+        font-family: Mulish;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+    }
+}
+
+.account__content table {
+    width: 100%;
+    font-family: Mulish;
+
+    thead {
+
+        font-size: 16px;
+        font-weight: 700;
+
+        th {
+            padding-bottom: 11px;
+        }
+    }
+
+    tbody {
+
+        font-size: 15px;
+        font-weight: 400;
+
+        td {
+            padding: 16px 0;
+            border-top: 1px solid #D9D9D9;
+
+            a {
+                color: #3C5B96;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.account__content table a:first-child, .orders-mobile-list a:first-child {
+    padding-right: 10px;
+    position: relative;
+}
+
+.account__content table a:first-child::after, .orders-mobile-list a:first-child::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    height: 11px;
+    width: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #5E5E5E;
+}
+
+.account__content table a:last-child, .orders-mobile-list a:last-child {
+    padding-left: 10px;
+}
+
+.orders-count-and-paginate {
+    display: flex;
+    justify-content: space-between;
+    font-family: Mulish;
+    font-size: 15px;
+    margin-top: 30px;
+
+      a {
+        color: #3C5B96;
+        text-decoration: none;
+      }
+
+      @media (max-width: 991px) {
+        flex-direction: column;
+        text-align: center;
+        margin-top: 10px;
+      }
+}
+
+.account__right-addresses {
+    h5 {
+        font-family: Ovo;
+        font-size: 18px;
+        font-weight: 400;
+        color:#000;
+        width: calc(100% + 105px);
+        padding-bottom: 10px;
+        border-bottom: 1px solid #D9D9D9;
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-family: Mulish;
+        font-size: 15px;
+        font-weight: 400;
+        color: #5E5E5E;
+        padding: 5px 0;
+
+         span {
+            color: #F00;
+         }
+    }
+
+    input {
+        display: block;
+        background: #F7F7F7;
+        padding: 10px 10px;
+        border: none;
+        border-bottom: 1px solid #D9D9D9;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    select {
+        padding: 10px;
+        border: 1px solid #D9D9D9;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .radio-inline input {
+        display: inline;
+        width: 20px;
+        height: 20px;
+    }
+
+    .account__buttons 
+    {
+    
+    font-size: 14px;
+    font-family: Mulish;
+    padding: 31px 0px;
+    width: calc(100% + 105px);
+    border-top: 1px solid #D9D9D9;
+
+     input {
+        width: 169px;
+        height: 46px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+        border: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: #5E5E5E;
+    }
+
+}
+
+    .add-address-book {
+        margin: 10px 0;
+
+        a {
+            display: block;
+            width: 169px;
+            line-height: 46px;
+            background: #000;
+            color: #fff;
+            font-family: Mulish;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    }
+
+}
+
+.orders-mobile-list {
+
+    display: none;
+
+    @media (max-width: 991px) {
+        display: block;
+    }
+    
+    ul {
+    list-style: none;
+    padding: 0;
+    padding-bottom: 5px; 
+    border-bottom: 1px solid #D9D9D9;
+
+      li {
+        display: flex;
+        font-family: Mulish;
+        font-size: 13px;
+        font-weight: 400;
+        color: #000;
+        padding: 5px 0;
+
+         span {
+           flex: 1;
+
+           &:nth-child(2) {
+           color: #5E5E5E; 
+           }
+         }
+
+         a {
+            text-decoration: none;
+            color: #3C5B96;
+         }
+      }
+    }
+}

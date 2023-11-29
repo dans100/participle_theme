@@ -1,0 +1,139 @@
+<!-- Cart popup -->
+<div class="cart-popup js-cart-popup">
+  <div class="cart-popup__overlay js-close-cart-popup"></div>
+  <!-- Content -->
+  <div class="cart-popup__content">
+    <svg
+      class="cart-popup__polygon"
+      width="13"
+      height="7"
+      viewBox="0 0 13 7"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M6.5 0L12.1292 6.75H0.870835L6.5 0Z" fill="black"/>
+    </svg>
+    <div id="cart-content" class="js-cart-content">
+      {% if cart.items == empty %}
+        <div class="cart-empty text-center">Your bag is empty</div>
+      {% else %}
+        <!-- D-flex -->
+        <div class="cart-popup__d-flex">
+          <!-- Top and products -->
+          <div class="cart-popup__top-and-products">
+            <!-- Heading -->
+            <div class="cart-popup__heading">
+              <h3 class="cart-popup__h3">Your bag ({{ cart.item_count }})</h3>
+            </div>
+            <!-- End heading -->
+            <!-- Cart items -->
+            <ul class="header-cart__items">
+              {% for item in cart.items %}
+                <!-- Item -->
+                <li class="cart-item d-flex">
+                  <!-- Item image -->
+                  <p class="cart-item__image">
+                    <a href="{{ item.url }}">
+                      <img
+                        src="{{ item | img_url: 'small'}}"
+                        alt="Image"
+                        class="lazyload"
+                      >
+                    </a>
+                  </p>
+                  <!-- End item image -->
+                  <!-- Item details -->
+                  <div class="cart-item__details">
+                    <!-- Item title -->
+                    <a href="{{ item.url }}" class="cart-item__title">
+                      {{ item.product.title | truncate: 20, '...' }}
+                      <span class="cart-item__price">{{ item.price | money }}</span></a
+                    >
+                    <!-- End item title -->
+                    <!-- Item variants -->
+                    <div class="cart-item__variants">
+                      {% unless item.variant.title == 'Default Title' %}
+                        <span class="cart-item__variant">{{ item.variant.title }}</span>
+                      {% endunless %}
+                      <span class="cart-item__quantity">Qty: {{ item.quantity }}</span>
+                    </div>
+                    <!-- End item variants -->
+                    <!-- Item buttons -->
+                    <div class="cart-item__buttons d-flex">
+                      <!-- Item quantity buttons -->
+                      <div class="quantity-buttons d-flex">
+                        <div
+                          class="quantity-button js-change-quantity"
+                          data-variant-id="{{ item.variant_id }}"
+                          data-quantity="{{ item.quantity | minus: 1 }}"
+                        >
+                          <a href="#">-</a>
+                        </div>
+                        <div
+                          class="quantity-button js-change-quantity"
+                          data-variant-id="{{ item.variant_id }}"
+                          data-quantity="{{ item.quantity | plus: 1 }}"
+                        >
+                          <a href="#">+</a>
+                        </div>
+                      </div>
+                      <!-- End item quantity buttons -->
+                      <!-- Item delete -->
+                      <a
+                        href="#"
+                        class="cart-item__delete js-delete-product-popup"
+                        data-variant-id="{{ item.variant_id }}"
+                      >
+                        {% render 'trash-icon' %}
+                      </a>
+                      <!-- End item delete -->
+                    </div>
+                    <!-- End item buttons -->
+                  </div>
+                  <!-- End item details -->
+                </li>
+              {% endfor %}
+            </ul>
+            <!-- End cart items -->
+          </div>
+          <!-- End top and products -->
+          <!-- Bottom -->
+          <div class="cart-popup__bottom">
+            <!-- Total -->
+            <div class="header-cart__total d-flex">
+              <!-- Title -->
+              <div class="total__title">Total:</div>
+              <!-- End title -->
+              <!-- Value -->
+              <div class="total__value">{{ cart.total_price | money }}</div>
+              <!-- End value -->
+            </div>
+            <!-- End total -->
+            <!-- Shipping -->
+            <div class="header-cart__shipping d-flex">
+              <!-- Title -->
+              <div class="shipping__title">Shipping:</div>
+              <!-- End title -->
+              <!-- Value -->
+              <div class="shipping__value">Free</div>
+              <!-- End value -->
+            </div>
+            <!-- End shipping -->
+            <!-- Header cart action -->
+            <div class="header-cart__action">
+              <form action="/cart" method="post" id="cartform" enctype="multipart/form-data">
+                <a href="/cart" class="header-cart__button-bag">View Bag</a>
+                <input type="submit" name="checkout" class="header-cart__button-checkout" value="Go To Checkout">
+              </form>
+            </div>
+            <!-- End header cart action -->
+          </div>
+          <!-- End bottom -->
+        </div>
+        <!-- End d-flex -->
+      {% endif %}
+    </div>
+  </div>
+  <!-- End content -->
+</div>
+<!-- End cart popup -->

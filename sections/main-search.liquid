@@ -1,0 +1,37 @@
+<!-- Search -->
+<div class="collection main-search">
+  <!-- Container -->
+  <div class="main-container">
+    <!-- Title -->
+    <h1 class="shop-search__title">Search results for: “{{ search.terms | escape }}”</h1>
+    <!-- End Title -->
+    {% paginate search.results by 9 %}
+      <!-- Products row -->
+      <div class="row products-row js-collection-row">
+        {% for product in search.results %}
+          {% if product.object_type == 'product' %}
+            <!-- Product -->
+            <div class="col-6 col-lg-4">
+              {% render 'product-grid-item', product: product %}
+            </div>
+            <!-- End product -->
+          {% endif %}
+        {% else %}
+          <div class="col-12 collection__no-results">No products</div>
+        {% endfor %}
+        {% if paginate.next %}
+          <div class="col-12 js-collection-next-page" data-href="{{ paginate.next.url }}">
+            <!-- Loading spin -->
+            <div class="loading-spin text-center">
+              <div class="loader"></div>
+            </div>
+            <!-- End loading spin -->
+          </div>
+        {% endif %}
+      </div>
+      <!-- End Products row -->
+    {% endpaginate %}
+  </div>
+  <!-- End container -->
+</div>
+<!-- End search -->

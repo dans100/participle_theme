@@ -1,0 +1,94 @@
+<!-- Slider js -->
+<div class="slider js-home-slider">
+  {%- for block in section.blocks -%}
+    {% if block.type == 'image' %}
+      <!-- Slider item -->
+      <div class="slider__item">
+        <!-- Image -->
+        <div class="slider__image js-slider-heading">
+          <img
+            data-id="1"
+            alt="Image"
+            data-sizes="auto"
+            data-srcset="
+              {{ block.settings.image | img_url: '1000x'}} 400w,
+              {{ block.settings.image | img_url: '1000x'}} 800w
+            "
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            class="lazyload"
+          >
+        </div>
+        <!-- End image -->
+        <!-- Content -->
+        <div class="slider__content">
+          <!-- Tag -->
+          <h1 class="slider__title font-family-jost js-slider-heading">{{ block.settings.heading }}</h1>
+          <!-- End tag -->
+          <!-- Title -->
+          <h2 class="slider__tag js-slider-heading d-none d-lg-block">{{ block.settings.tag }}</h2>
+          <!-- End title -->
+          <!-- Buttons -->
+          <div class="slider__buttons js-slider-heading d-none d-lg-block">
+            {% if block.settings.button_label != '' %}
+              <a href="{{ block.settings.button_url }}">{{ block.settings.button_label }}</a>
+            {% endif %}
+          </div>
+          <!-- End buttons -->
+        </div>
+        <!-- End content -->
+      </div>
+      <!-- End slider item -->
+    {% endif %}
+  {%- endfor -%}
+</div>
+<!-- End slider js -->
+
+{% schema %}
+{
+  "name": "Slider",
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider",
+      "category": "Sliders",
+      "blocks": [
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

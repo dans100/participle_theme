@@ -1,0 +1,199 @@
+<!-- Shopping cart -->
+<div class="shopping-cart">
+  <!-- Container -->
+  <div class="main-container">
+    <!-- Title -->
+    <h1 class="shopping-cart__title">Your Shopping Bag</h1>
+    <!-- End title -->
+    {% if cart.item_count > 0 %}
+      <form action="/cart" method="post" novalidate>
+        <!-- Row -->
+        <div class="row">
+          <div class="col-lg-7 col-xl-8">
+            <!-- Cart container -->
+            <div class="shopping-cart__container">
+              <!-- Table responsive -->
+              <div class="table-responsive">
+                <!-- Table -->
+                <table class="shopping-cart__table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Product name</th>
+                      <th>Unit Price</th>
+                      <th>Qty</th>
+                      <th>Subtotal</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in cart.items %}
+                      <!-- Cart product item -->
+                      <tr>
+                        <td>
+                          <div class="cart-product__image">
+                            <a href="{{ item.url | within: collections.all }}">
+                              <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}">
+                            </a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cart-product__title-and-variant">
+                            <h3 class="cart-product__title">
+                              <a href="{{ item.url }}">{{ item.product.title }}</a>
+                            </h3>
+                            {% if item.variant.title != 'Default Title' %}
+                              <div class="cart-product__variant">
+                                Size: <span>{{ item.variant.title }}</span>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cart-product__price">
+                            {{ item.price | money }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cart-product__quantity-field">
+                            <input
+                              type="text"
+                              value="{{ item.quantity }}"
+                              disabled="disabled"
+                              class="quantity-field__input"
+                            >
+                            <div class="cart-quantity-field">
+                              <div class="quantity-field__minus">
+                                <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}"
+                                  >-</a
+                                >
+                              </div>
+                              <div class="quantity-field__plus">
+                                <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}"
+                                  >+</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cart-product__price">
+                            {{ item.line_price | money }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cart-product__delete">
+                            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{% render 'trash-icon' %}</a>
+                          </div>
+                        </td>
+                      </tr>
+                      <!-- End cart product item -->
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <!-- End table -->
+              </div>
+              <!-- End table responsive -->
+              <!-- Mobile product list -->
+              <div class="shopping-cart__mobile-list">
+                {% for item in cart.items %}
+                  <!-- Product item -->
+                  <div class="cart-product__item d-flex">
+                    <div class="cart-product__image">
+                      <a href="{{ item.url | within: collections.all }}">
+                        <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}">
+                      </a>
+                    </div>
+                    <div class="cart-product__mobile-description">
+                      <div class="d-flex justify-content-between">
+                        <h3 class="cart-product__title">
+                          <a href="{{ item.url }}">{{ item.product.title }}</a>
+                        </h3>
+                        <div class="cart-product__price">
+                          {{ item.price | money }}
+                        </div>
+                      </div>
+                      {% if item.variant.title != 'Default Title' %}
+                        <div class="cart-product__variant">
+                          Size: <span>{{ item.variant.title }}</span>
+                        </div>
+                      {% endif %}
+                      <div class="d-flex justify-content-between">
+                        <div class="cart-product__quantity-field">
+                          <input
+                            type="text"
+                            value="{{ item.quantity }}"
+                            disabled="disabled"
+                            class="quantity-field__input"
+                          >
+                          <div class="cart-quantity-field">
+                            <div class="quantity-field__minus">
+                              <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}"
+                                >-</a
+                              >
+                            </div>
+                            <div class="quantity-field__plus">
+                              <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}"
+                                >+</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="cart-product__delete">
+                          <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{% render 'trash-icon' %}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End product item -->
+                {% endfor %}
+              </div>
+              <!-- End mobile product list -->
+              <!-- Cart action -->
+              <div class="shopping-cart-continue-and-clear d-flex justify-content-between">
+                <div>
+                  <a href="/collections/all">{% render 'down-icon' %} Continue Shopping</a>
+                </div>
+                <div>
+                  <a href="/cart/clear">Clear Shopping Cart</a>
+                </div>
+              </div>
+              <!-- End cart action -->
+            </div>
+            <!-- End cart container -->
+          </div>
+          <!-- End left -->
+          <!-- Right -->
+          <div class="col-lg-5 col-xl-4">
+            <!-- Summary -->
+            <div class="shopping-cart__summary">
+              <!-- Title -->
+              <h3 class="summary__title">Summary</h3>
+              <!-- End title -->
+              <!-- Total -->
+              <div class="order-summary__total d-flex justify-content-between">
+                <div class="summary-total__title">Order total</div>
+                <div class="summary-total__price">{{ cart.total_price | money }}</div>
+              </div>
+              <!-- End total -->
+              <!-- Proceed to checkout -->
+              <div class="order-summary__proceed-to-checkout">
+                <button type="submit" name="checkout" aria-label="Proceed To Checkout">
+                  <span>Proceed To Checkout</span>
+                </button>
+              </div>
+              <!-- End proceed to checkout -->
+            </div>
+            <!-- End summary -->
+          </div>
+          <!-- End right -->
+        </div>
+        <!-- End row -->
+      </form>
+    {% else %}
+      Your bag is empty
+    {% endif %}
+  </div>
+  <!-- End container -->
+</div>
+<!-- End shopping cart -->

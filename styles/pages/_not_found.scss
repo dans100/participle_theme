@@ -1,0 +1,66 @@
+/* ==========================================================================
+  NOT FOUND PAGE
+========================================================================== */
+
+.not-found-page {
+  text-align: center;
+  padding: 150px 0;
+
+  @media (max-width: 991px) {
+    padding: 85px 0px;
+ }
+}
+
+.not-found-page__title {
+  font-family: Ovo;
+  font-size: 250px;
+  padding: 0px 0px 30px 0px;
+
+  @media (max-width: 1098px) {
+    font-size: 180px;
+ }
+
+ @media (max-width: 991px) {
+    font-size: 60px;
+ }
+}
+
+
+.not-found-page__description {
+  font-family: Mulish;
+  font-size: 36px;
+  padding: 0px 0px 70px 0px;
+
+  @media (max-width: 1098px) {
+    font-size: 30px;
+ }
+
+ @media (max-width: 991px) {
+    font-size: 18px;
+    padding-bottom: 40px;
+ }
+}
+
+.not-found-page__link {
+  font-family: Mulish;
+  font-size: 24px;
+  color: #828282;
+  text-decoration: none;
+
+    @media (max-width: 1098px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 991px) {
+    font-size: 13px;
+  }
+
+    &:hover {
+      color: #828282;
+    }
+
+    svg {
+      transform: rotate(90deg);
+    }
+
+}

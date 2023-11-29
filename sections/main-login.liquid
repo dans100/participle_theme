@@ -1,0 +1,120 @@
+<!-- Login -->
+<div class="login js-login">
+  <!-- Container -->
+  <div class="login__container">
+    <!-- Login heading -->
+    <h1 class="login__title">Welcome back!</h1>
+    <p class="login__description">Please sign in.</p>
+    <!-- End login heading -->
+    <!-- Login form -->
+    {% form 'customer_login' %}
+      <!-- Error -->
+      {%- if form.errors -%}
+        <div class="alert login__alert alert-danger">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+      <!-- End error -->
+      <!-- Login inputs -->
+      <div class="login__inputs">
+        <!-- Form group -->
+        <div class="form-group required {% if form.errors contains 'email' %} has-error {% endif %}">
+          <label for="email_address" class="form-group__label"> Email Address </label>
+          <input
+            type="email"
+            class="form-group__input"
+            name="customer[email]"
+            id="email_address"
+            required="required"
+            placeholder="your@email.com"
+          >
+        </div>
+        <!-- End form group -->
+        {% if form.password_needed %}
+          <!-- Form group -->
+          <div class="form-group required {% if form.errors contains 'password' %} has-error {% endif %}">
+            <label for="password" class="form-group__label"> Password </label>
+            <input
+              type="password"
+              class="form-group__input"
+              id="password"
+              name="customer[password]"
+              required="required"
+            >
+            {% render 'eye-icon' %}
+          </div>
+          <!-- End form group -->
+        {% endif %}
+      </div>
+      <!-- End login inputs -->
+      <!-- Forgot password -->
+      <div class="login__forgot-password">
+        <a href="#recover" class="js-go-to-forgotten-password">Forgot password?</a>
+      </div>
+      <!-- End forgot password -->
+      <!-- Actions -->
+      <div class="login__action">
+        <div class="login__button">
+          <input type="submit" class="button" value="Sign In">
+        </div>
+        <div class="login__create-account">
+          <a href="{{ routes.account_register_url }}"
+            >Create an Account
+            <span>{% render 'down-icon' %}</span>
+          </a>
+        </div>
+      </div>
+      <!-- End actions -->
+    {% endform %}
+    <!-- End login form -->
+  </div>
+  <!-- End container -->
+</div>
+<!-- End login -->
+
+<!-- Login -->
+<div class="login d-none js-forgotten-password">
+  <!-- Container -->
+  <div class="login__container">
+    <!-- Login heading -->
+    <h4 class="login__title">Reset Your Password</h4>
+    <p class="login__description">
+      Enter the e-mail address associated with your account. Click submit to have your e-mailed to you.
+    </p>
+    <!-- End login heading -->
+    <!-- Login form -->
+    {% form 'recover_customer_password' %}
+      <!-- Error -->
+      {%- if form.errors -%}
+        <div class="alert login__alert alert-danger">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+      <!-- End error -->
+      <!-- Form group -->
+      <div class="form-group">
+        <input
+          type="email"
+          class="form-group__input"
+          name="email"
+          required="required"
+          placeholder="your@email.com"
+        >
+      </div>
+      <!-- End form group -->
+      <!-- Action -->
+      <div class="login__action">
+        <div class="login__button">
+          <input type="submit" class="button" value="Submit">
+        </div>
+        <div class="login__button">
+          <a href="#" class="cancel-button js-back-to-login">Cancel</a>
+        </div>
+      </div>
+      <!-- End action -->
+    {% endform %}
+    <!-- End login form -->
+  </div>
+  <!-- End container -->
+</div>
+<!-- End login -->

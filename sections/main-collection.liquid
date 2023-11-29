@@ -1,0 +1,75 @@
+<!-- Container -->
+<div class="main-container">
+  <!-- Breadcrumb and filter -->
+  <div class="breadcrumb-and-filters">
+    <!-- Shop breadcrumb -->
+    <div class="shop-breadcrumb">
+      {% render 'breadcrumb' %}
+    </div>
+    <!-- End shop breadcrumb -->
+    <!-- Facets -->
+    {% render 'facets' %}
+    <!-- End facets -->
+  </div>
+  <!-- End breadcrumb and filters -->
+  <!-- Collection -->
+  <div class="collection">
+    <!-- Items -->
+    <div class="wrap-collection js-collection">
+      <div class="js-collection-items" data-url="{{ collection.url }}">
+        {% paginate collection.products by 6 %}
+          <!-- Products row -->
+          <div class="row products-row js-collection-row">
+            {% for product in collection.products %}
+              <!-- Product -->
+              <div class="col-6 col-lg-3">
+                {% render 'product-grid-item', product: product %}
+              </div>
+              <!-- End product -->
+            {% else %}
+              <div class="col-12 collection__no-results">No products</div>
+            {% endfor %}
+            {% if paginate.next %}
+              <div class="col-12 js-collection-pagination js-collection-next-page" data-href="{{ paginate.next.url }}">
+                <!-- Loading spin -->
+                <div class="loading-spin text-center">
+                  <div class="loader"></div>
+                </div>
+                <!-- End loading spin -->
+              </div>
+            {% endif %}
+          </div>
+          <!-- End Products row -->
+        {% endpaginate %}
+      </div>
+    </div>
+    <!-- End items -->
+  </div>
+  <!-- End collection -->
+</div>
+<!-- End container -->
+
+<script>
+  (function ($) {
+    $.QueryString = (function (a) {
+      if (a == '') return {};
+      var b = {};
+      for (var i = 0; i < a.length; ++i) {
+        var p = a[i].split('=');
+        if (p.length != 2) continue;
+        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, ' '));
+      }
+      return b;
+    })(window.location.search.substr(1).split('&'));
+  })(jQuery);
+
+  var param = jQuery.QueryString['view'];
+
+  if (param == 'large') {
+    $('.js-collection-row')
+      .find('div.col-6.col-lg-3')
+      .each(function () {
+        $(this).removeClass('col-lg-3').addClass('col-lg-6');
+      });
+  }
+</script>

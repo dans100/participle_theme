@@ -1,0 +1,51 @@
+{
+  "current": {
+    "product_wishlist_status": true,
+    "product_wishlist_page": "wishlist",
+    "product_information": true,
+    "product_color_and_feel": true,
+    "product_custom_size": true,
+    "ship_information": "Free Shipping On All U.S. Orders",
+    "ship_url": "shopify:\/\/collections\/all",
+    "title": "Complete Your Outfit",
+    "collection": "all",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "header_promo_bar_text": "Free Shipping On All U.S. Orders",
+          "promo_bar_status": true,
+          "header_logo": "Participle+",
+          "desktop_linklist": "main-menu",
+          "mobile_linklist": "mobile-menu",
+          "banner_status": true,
+          "banner_image": "shopify:\/\/shop_images\/cf0c8327f68ed1c4746d981b28122aae.jpg",
+          "banner_url": "shopify:\/\/collections\/all",
+          "banner_title": "Shop New In"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo_text": "Participle+",
+          "contact_address": "132 Smith Street\nBrooklyn, NY 14231",
+          "contact_link": "mailto:support@participle.com",
+          "contact_link_title": "Contact Us",
+          "faqs_menu_title": "Customer Care",
+          "faqs_linklist": "main-menu",
+          "socials_menu_title": "Connect",
+          "instagram_url": "https:\/\/instagram.com",
+          "facebook_url": "https:\/\/facebook.com",
+          "twitter_url": "https:\/\/twitter.com",
+          "pinterest_url": "https:\/\/pinterest.com",
+          "newsletter_mailchimp_action": "",
+          "newsletter_placeholder": "Email",
+          "newsletter_submit": "Sign Up!"
+        }
+      }
+    },
+    "content_for_index": [
+      
+    ]
+  }
+}

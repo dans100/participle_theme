@@ -1,0 +1,15 @@
+{
+    "sections": {
+      "main": {
+        "type": "main-about",
+        "settings": {
+          "heading": "Parcticiple+ Story",
+          "description": "Founded in 2015, Participle+ brings together the creative talents of Sarah and Alex, two visionary designers based in the heart of New York City. Drawing inspiration from urban landscapes, street culture, and the vibrant energy of city life, Participle+'s fashion pieces embody a perfect blend of contemporary style and timeless elegance. Sarah's designs, characterized by their clean lines and versatile silhouettes, effortlessly adapt to any fashion trend, making them a staple in every wardrobe.",
+          "image": "shopify:\/\/shop_images\/about_us.jpg"
+        }
+      }
+    },
+    "order": [
+      "main"
+    ]
+}

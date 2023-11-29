@@ -1,0 +1,34 @@
+<!-- Account popup -->
+<div class="account-popup js-account-popup">
+  <div class="account-popup__overlay js-close-account-popup"></div>
+  <!-- Content -->
+  <div class="account-popup__content">
+    <!-- Polygon -->
+    <svg
+      class="account-popup__polygon"
+      width="13"
+      height="7"
+      viewBox="0 0 13 7"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M6.5 0L12.1292 6.75H0.870835L6.5 0Z" fill="black"/>
+    </svg>
+    <!-- End polygon -->
+    <div class="account-popup__list">
+      <ul>
+        <li>
+          <a href="/account">{% render 'user-icon' %} My Account</a>
+        </li>
+        <li>
+          <a href="/pages/wishlist">
+            {%- render 'favourite-icon' %} My Favorites <span class="js-my-favorite-count"></span
+          ></a>
+        </li>
+      </ul>
+      <a href="{{ routes.account_logout_url }}" class="logout-button">Log Out</a>
+    </div>
+  </div>
+  <!-- End content -->
+</div>
+<!-- End cart popup -->

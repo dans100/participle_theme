@@ -1,0 +1,477 @@
+<div class="main-container">
+  <div class="account__d-flex d-flex">
+    <div class="account__left">
+      <ul class="account__nav">
+        <li class="active">
+          <div class="account__nav--icon">
+            {% render 'user-icon' %}
+          </div>
+          <a href="{{ routes.account_addresses_url }}">Address Book</a>
+        </li>
+        <li>
+          <div class="account__nav--icon">
+            {% render 'bag-icon' %}
+          </div>
+          <a href="/account/orders">My Orders</a>
+        </li>
+        <li>
+          <div class="account__nav--icon">
+            {% render 'favourite-icon' %}
+          </div>
+          <a href="/pages/wishlist">My Favorites</a>
+        </li>
+      </ul>
+      <div class="account__left-contact">
+        <h4>Need Help?</h4>
+        <p>Please contact us with any questions you might have. All messages will be answered within 24 hrs.</p>
+        <button><a href="/contact">Leave Message</a></button>
+      </div>
+    </div>
+    <div class="account__right-addresses">
+      <div id="content">
+        <div class="clearfix">
+          <div id="address_tables">
+            <div id="view_addresses">
+              <h4 class="account__heading">Address Book</h4>
+              <div class="account__content">
+                {% paginate customer.addresses by 9 %}
+                  {% if customer.addresses_count > 0 %}
+                    <div class="row addressess">
+                      {% for address in customer.addresses %}
+                        <div class="col-6">
+                          <div class="address">
+                            <h5>
+                              {% if address == customer.default_address %}
+                                Default Addresses
+                              {% else %}
+                                Additional Address Entries
+                              {% endif %}
+                            </h5>
+                            <div class="address__content">
+                              <ul class="list-unstyled">
+                                <li>{{ address.first_name }}</li>
+                                <li>{{ address.last_name }}</li>
+                                <li>{{ address.company }}</li>
+                                <li>{{ address.street }}</li>
+                                <li>
+                                  {{ address.city }}
+                                  {% if address.province_code %}, {{ address.province_code }} {% endif %}
+                                </li>
+                                <li>{{ address.country }}</li>
+                                <li>{{ address.phone }}</li>
+                              </ul>
+                              <ul class="address__action">
+                                <li>
+                                  <a
+                                    href="javascript:void(0);"
+                                    onclick="Shopify.CustomerAddress.toggleForm({{address.id}});return false"
+                                    >Change Address</a
+                                  >
+                                </li>
+                                <li>
+                                  <a
+                                    class="delete-action"
+                                    href="javascript:void(0);"
+                                    onclick="Shopify.CustomerAddress.destroy({{address.id}}, 'Are you sure you wish to delete this address?');return false"
+                                    >Delete Address</a
+                                  >
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endpaginate %}
+              </div>
+              <div class="add-address-book">
+                <a
+                  href="javascript:void(0);"
+                  onclick="Shopify.CustomerAddress.toggleNewForm(); return false;"
+                  class="button"
+                  >Add New Address</a
+                >
+              </div>
+            </div>
+            {%- for address in customer.addresses -%}
+              {%- form 'customer_address', address -%}
+                <div
+                  id="edit_address_{{ address.id }}"
+                  {% unless form.errors %}
+                    style="display:none;"
+                  {% endunless %}
+                >
+                  <h4 class="account__heading">Change Address</h4>
+                  <div class="account__content">
+                    {{ form.errors | default_errors | replace: 'errors', 'alert alert-danger errors' }}
+                    <h5>Contact Information</h5>
+                    <fieldset class="form-horizontal">
+                      <div class="row justify-content-between">
+                        <div class="col-lg">
+                          <div class="form-group">
+                            <label
+                              for="address_first_name_{{ form.id }}"
+                            >
+                              First Name<span class="required">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              required="required"
+                              name="address[first_name]"
+                              value="{{form.first_name}}"
+                              id="address_first_name_{{ form.id }}"
+                            >
+                          </div>
+                          <div class="form-group">
+                            <label
+                              for="address_last_name_{{ form.id }}"
+                            >
+                              Last Name<span class="required">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              required="required"
+                              name="address[last_name]"
+                              value="{{form.last_name}}"
+                              id="address_last_name_{{ form.id }}"
+                            >
+                          </div>
+                          <div class="form-group">
+                            <label for="address_phone_{{ form.id }}"> Telephone<span class="required">*</span> </label>
+                            <input
+                              type="text"
+                              name="address[phone]"
+                              value="{{ form.phone }}"
+                              id="address_phone_{{ form.id }}"
+                            >
+                          </div>
+                        </div>
+                        <div class="col-lg">
+                          <div class="form-group">
+                            <label
+                              for="address_company_{{ form.id }}"
+                            >
+                              Company
+                            </label>
+                            <input
+                              type="text"
+                              name="address[company]"
+                              value="{{ form.company }}"
+                              id="address_company_{{ form.id }}"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <h5>Address</h5>
+                      <div class="form-group">
+                        <label
+                          for="address_address1_{{ form.id }}"
+                        >
+                          Street Address<span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required="required"
+                          name="address[address1]"
+                          value="{{ form.address1 }}"
+                          id="address_address1_{{form.id}}"
+                        >
+                      </div>
+                      <div class="row justify-content-between ">
+                        <div class="col-lg">
+                          <div class="form-group">
+                            <label
+                              for="address_city_{{ form.id }}"
+                            >
+                              City<span class="required">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              required="required"
+                              name="address[city]"
+                              value="{{ form.city }}"
+                              id="address_city_{{ form.id }}"
+                            >
+                          </div>
+                          <div class="form-group">
+                            <label for="address_zip_{{ form.id }}">
+                              Zip/Postal Code<span class="required">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              required="required"
+                              name="address[zip]"
+                              value="{{ form.zip }}"
+                              id="address_zip_{{ form.id }}"
+                              class=""
+                            >
+                          </div>
+                        </div>
+                        <div class="col-lg">
+                          <div class="form-group">
+                            <label
+                              for="address_country_{{ form.id }}"
+                            >
+                              Country<span class="required">*</span>
+                            </label>
+                            <div class="select">
+                              <select
+                                id="address_country_{{form.id}}"
+                                data-form-id="{{ form.id }}"
+                                name="address[country]"
+                                data-default="{{ form.country }}"
+                                autocomplete="country"
+                              >
+                                {{ all_country_option_tags }}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group" id="address_province_container_{{ form.id }}" style="display:none;">
+                            <label
+                              for="address_province_{{ form.id }}"
+                            >
+                              State/Province<span class="required">*</span>
+                            </label>
+                            <div class="select">
+                              <select
+                                id="address_province_{{ form.id }}"
+                                name="address[province]"
+                                data-default="{{ form.province }}"
+                                autocomplete="address-level1"
+                              ></select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="check">
+                          <label class="radio-inline">
+                            <input
+                              type="checkbox"
+                              name="address[default]"
+                              value="1"
+                              {% if address == customer.default_address %}
+                                checked="checked"
+                              {% endif %}
+                            >
+                            Use as my default shipping address
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="account__buttons row clearfix justify-content-between">
+                      <div class="col">
+                        <input class="form-address-button" type="submit" value="Update Address">
+                      </div>
+                      <div class="col">
+                        <a
+                          href="javascript:void(0);"
+                          onclick="Shopify.CustomerAddress.toggleForm({{ form.id }}); return false;"
+                          class="form-cancel-button"
+                        >
+                          Cancel
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endform -%}
+            {%- endfor -%}
+          </div>
+          <div
+            id="add_address"
+            {% unless form.errors %}
+              style="display:none;"
+            {% endunless %}
+          >
+            {% form 'customer_address', customer.new_address %}
+              <h4 class="account__heading">New Address</h4>
+              <div class="account__content">
+                {{ form.errors | default_errors | replace: 'errors', 'alert alert-danger errors' }}
+                <h5>Contact Information</h5>
+                <fieldset class="form-horizontal">
+                  <div class="row justify-content-between">
+                    <div class="col-lg">
+                      <div class="form-group">
+                        <label
+                          for="address_first_name_name"
+                        >
+                          First Name<span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required="required"
+                          name="address[first_name]"
+                          value="{{form.first_name}}"
+                          id="address_first_name_new"
+                        >
+                      </div>
+                      <div class="form-group">
+                        <label
+                          for="address_last_name_new"
+                        >
+                          Last Name<span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required="required"
+                          name="address[last_name]"
+                          value="{{form.last_name}}"
+                          id="address_last_name_new"
+                        >
+                      </div>
+                      <div class="form-group">
+                        <label for="address_phone_new"> Telephone<span class="required">*</span> </label>
+                        <input
+                          type="text"
+                          name="address[phone]"
+                          value="{{ form.phone }}"
+                          id="address_phone_new"
+                        >
+                      </div>
+                    </div>
+                    <div class="col-lg">
+                      <div class="form-group">
+                        <label
+                          for="address_company_new"
+                        >
+                          Company
+                        </label>
+                        <input
+                          type="text"
+                          name="address[company]"
+                          value="{{ form.company }}"
+                          id="address_company_new"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <h5>Address</h5>
+                  <div class="form-group">
+                    <label
+                      for="address_address1_new"
+                    >
+                      Street Address<span class="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required="required"
+                      name="address[address1]"
+                      value="{{ form.address1 }}"
+                      id="address_address1_new"
+                    >
+                  </div>
+                  <div class="row justify-content-between ">
+                    <div class="col-lg">
+                      <div class="form-group">
+                        <label
+                          for="address_city_new"
+                        >
+                          City<span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required="required"
+                          name="address[city]"
+                          value="{{ form.city }}"
+                          id="address_city_new"
+                        >
+                      </div>
+                      <div class="form-group">
+                        <label for="address_zip_new"> Zip/Postal Code<span class="required">*</span> </label>
+                        <input
+                          type="text"
+                          required="required"
+                          name="address[zip]"
+                          value="{{ form.zip }}"
+                          id="address_zip_new"
+                        >
+                      </div>
+                    </div>
+                    <div class="col-lg">
+                      <div class="form-group">
+                        <label
+                          for="address_country_new"
+                        >
+                          Country<span class="required">*</span>
+                        </label>
+                        <div class="select">
+                          <select
+                            id="address_country_new"
+                            data-form-id="{{ form.id }}"
+                            name="address[country]"
+                            data-default="{{ form.country }}"
+                            autocomplete="country"
+                          >
+                            {{ all_country_option_tags }}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group" id="address_province_container_new" style="display:none;">
+                        <label
+                          for="address_province_new"
+                        >
+                          State/Province<span class="required">*</span>
+                        </label>
+                        <div class="select">
+                          <select
+                            id="address_province_new"
+                            name="address[province]"
+                            data-default="{{ form.province }}"
+                            autocomplete="address-level1"
+                          ></select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="check">
+                      <label class="radio-inline">
+                        <input
+                          type="checkbox"
+                          name="address[default]"
+                          value="1"
+                          {% if address == customer.default_address %}
+                            checked="checked"
+                          {% endif %}
+                        >
+                        Use as my default shipping address
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="account__buttons row clearfix justify-content-between">
+                  <div class="col">
+                    <input class="form-address-button" type="submit" value="Add Address">
+                  </div>
+                  <div class="col">
+                    <a
+                      href="javascript:void(0);"
+                      onclick="Shopify.CustomerAddress.toggleNewForm(); return false;"
+                      class="form-cancel-button"
+                    >
+                      Cancel
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+          new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {
+            hideElement: 'address_province_container_new',
+          });
+        </script>
+        {%- for address in customer.addresses -%}
+          <script type="text/javascript" charset="utf-8">
+            new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {
+              hideElement: 'address_province_container_{{address.id}}',
+            });
+          </script>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>

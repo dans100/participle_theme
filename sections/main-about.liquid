@@ -1,0 +1,45 @@
+<!-- Container -->
+<div class="main-container">
+  <!-- Title -->
+  <h4 class="about-page__title">{{ section.settings.heading }}</h4>
+  <!-- End Title -->
+  <!-- Description -->
+  <div class="about-page__description">{{ section.settings.description }}</div>
+  <!-- End description -->
+  {% if section.settings.image != blank %}
+    <!-- About image -->
+    <div class="about-page__image">
+      <img
+        alt="Image"
+        src="{{ section.settings.image | img_url: '2000x' }}"
+        class="lazyload"
+      >
+    </div>
+    <!-- About image -->
+  {% endif %}
+</div>
+<!-- End Container -->
+
+{% schema %}
+{
+  "name": "About",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Size 1170 x 536 px"
+    }
+  ]
+}
+{% endschema %}

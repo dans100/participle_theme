@@ -1,0 +1,63 @@
+<!-- Product -->
+<div class="product-grid-item">
+  <!-- Product images -->
+  <div class="product-grid-item__images">
+    <!-- Wishlist -->
+    <div class="product-grid-item__wishlist">
+      <a
+        href="{{ settings.product_wishlist_page.url }}"
+        class="product-grid-item__wishlist js-add-to-wishlist"
+        data-product-handle="{{ product.handle }}"
+        data-added="Added to wishlist"
+      >
+        {%- render 'favourite-icon' -%}
+      </a>
+    </div>
+    <!-- End wishlist -->
+    <!-- Product image -->
+    <div class="product-grid-item__image">
+      <a href="{{ product.url | within: collection }}">
+        <img
+          alt="Image"
+          data-sizes="auto"
+          data-srcset="
+            {{ product.featured_image | img_url: '1200x' }} 400w,
+            {{ product.featured_image | img_url: '1200x' }} 800w
+          "
+          src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          class="lazyload"
+        >
+      </a>
+    </div>
+    <!-- End product image -->
+  </div>
+  <!-- End product images -->
+  <!-- Product details -->
+  <div class="product-grid-item__details">
+    <!-- Product name -->
+    <div class="product-grid-item__name">
+      <a href="{{ product.url | within: collection }}">{{ product.title | truncate: 20, '...' }}</a>
+    </div>
+    <!-- End product name -->
+    <!-- Product price -->
+    <div class="product-grid-item__price">
+      {%- assign min_price = product.price_min -%}
+      {%- assign max_price = product.price_max -%}
+      {%- assign money_price_min = min_price | money -%}
+      {%- assign money_price_max = max_price | money -%}
+      {% if product.price_varies %}
+        {{ money_price_min }}
+      {% else %}
+        {%- if product.compare_at_price > product.price -%}
+          <span class="product-grid-item__price-new">{{ product.price | money }}</span>
+          <span class="product-grid-item__price-old">{{ product.compare_at_price | money }}</span>
+        {% else %}
+          {{ product.price | money }}
+        {%- endif -%}
+      {% endif %}
+    </div>
+    <!-- End product price -->
+  </div>
+  <!-- End product details -->
+</div>
+<!-- End Product -->

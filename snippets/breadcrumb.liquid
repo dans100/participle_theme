@@ -1,0 +1,64 @@
+{% assign t = template | split: '.' | first %}
+
+<nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+  <ol class="breadcrumb">
+    <li class="breadcrumb__item">
+      <a href="/" title="Home">Home</a>
+    </li>
+
+    {% case t %}
+      {% when 'page' %}
+        <li class="breadcrumb__item">
+          {{ page.title }}
+        </li>
+
+      {% when 'product' %}
+        {% if collection.url %}
+          <li class="breadcrumb__item">
+            {{ collection.title | link_to: collection.url }}
+          </li>
+        {% endif %}
+
+        <li class="breadcrumb__item">
+          {{ product.title }}
+        </li>
+
+      {% when 'collection' and collection.handle %}
+        {% if current_tags %}
+          <li class="breadcrumb__item">{{ collection.title | link_to: collection.url }}</li>
+          <li class="breadcrumb__item">
+            {% capture tag_url %}{{ collection.url }}/{{ current_tags | join: "+"}}{% endcapture %}
+            {{ current_tags | join: ' + ' }}
+          </li>
+        {% else %}
+          <li class="breadcrumb__item">
+            {{ collection.title }}
+          </li>
+        {% endif %}
+
+      {% when 'blog' %}
+        {% if current_tags %}
+          <li class="breadcrumb__item">{{ blog.title | link_to: blog.url }}</li>
+          <li class="breadcrumb__item">
+            {% capture tag_url %}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{% endcapture %}
+            {{ current_tags | join: ' + ' }}
+          </li>
+        {% else %}
+          <li class="breadcrumb__item">
+            {{ blog.title }}
+          </li>
+        {% endif %}
+
+      {% when 'article' %}
+        <li class="breadcrumb__item">{{ blog.title | link_to: blog.url }}</li>
+        <li class="breadcrumb__item">
+          {{ article.title }}
+        </li>
+
+      {% else %}
+        <li class="breadcrumb__item" aria-current="page">
+          {{ page_title }}
+        </li>
+    {% endcase %}
+  </ol>
+</nav>

@@ -1,0 +1,52 @@
+<!-- Our products -->
+<div class="our-products">
+  <!-- Title -->
+  <h4 class="our-products__title">{{ section.settings.title }}</h4>
+  <!-- End title -->
+  <!-- Products -->
+  <div class="row">
+    {% assign collection = collections[section.settings.collection] %}
+    {% for product in collection.products limit: 4 %}
+      <div class="col-6 col-md-5 col-xl-3">
+        {% render 'product-grid-item', product: product %}
+      </div>
+    {% endfor %}
+  </div>
+  <!-- End products -->
+  <!-- More button -->
+  <div class="collection-our-products__more d-none d-lg-block">
+    {% if section.settings.button_label != '' %}
+      <a href="{{ section.settings.button_url }}"> {{ section.settings.button_label }}</a>
+    {% endif %}
+  </div>
+  <!-- End more button -->
+</div>
+<!-- End our products -->
+
+{% schema %}
+{
+  "name": "Our products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button url"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,122 @@
+<!-- Header -->
+<header class="header">
+  <!-- Promo bar -->
+  {% if section.settings.promo_bar_status == true %}
+    <div class="header__promo-bar">
+      <h1>{{ section.settings.header_promo_bar_text }}</h1>
+    </div>
+  {% endif %}
+  <!-- End promo bar -->
+  <!-- Container -->
+  <div class="header__container">
+    {% include 'mobile-menu' %}
+    {% include 'desktop-menu' %}
+    <!-- Logo -->
+    <h1 class="header__logo">
+      <a href="{{routes.root_url}}">{{ section.settings.header_logo | escape }}</a>
+    </h1>
+    <!-- End logo -->
+    <!-- Header right -->
+    <ul class="header__right">
+      <li>
+        <a href="#">
+          <span class="d-none d-lg-inline-block">Search</span>
+          {% render 'icon-search' %}
+        </a>
+      </li>
+
+      {% if customer %}
+        <li class="d-none d-lg-block ">
+          <a href="#" class="js-open-account-popup">Account</a>
+        </li>
+      {% else %}
+        <li class="d-none d-lg-block">
+          <a href="{{ routes.account_login_url }}">Sign in</a>
+        </li>
+      {% endif %}
+      <li class="{% if cart.item_count > 0 %} active-bag {% endif %} js-active-bag d-none d-lg-block">
+        <a href="#" class="js-open-cart-popup d-flex align-items-center ">
+          {% if cart.item_count > 0 %}
+            <span class="d-inline-block js-cart-title">
+              {{- cart.item_count }}
+              {% if cart.item_count == 1 %}
+                item
+              {% else %}
+                items
+              {% endif %}
+            </span>
+            <span class="header__right--bag"></span>
+          {% else %}
+            <span class="js-cart-title">Bag</span>
+            <span class="header__right--bag js-right-bag"
+              ><span class="js-cart-count-lg">{{ cart.item_count }}</span></span
+            >
+          {% endif %}
+        </a>
+      </li>
+      <li class="d-lg-none">
+        <a href="#" class="js-open-cart-popup">
+          <span class="header__right--bag"
+            ><span class="js-cart-count">{{ cart.item_count }}</span></span
+          >
+        </a>
+      </li>
+    </ul>
+    <!-- End header right -->
+  </div>
+  <!-- End container -->
+</header>
+<!-- End header -->
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header_promo_bar_text",
+      "label": "Header promo bar text"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_status",
+      "label": "Promo status"
+    },
+    {
+      "type": "text",
+      "id": "header_logo",
+      "label": "Header logo"
+    },
+    {
+      "type": "link_list",
+      "id": "desktop_linklist",
+      "label": "Desktop Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_linklist",
+      "label": "Mobile Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_status",
+      "label": "Banner Status"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "url",
+      "id": "banner_url",
+      "label": "Banner url"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner title"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,95 @@
+<!-- Facets filter -->
+<div class="facets__filter d-flex justify-content-between">
+  <!-- Founded products -->
+  <div class="facets__founded-products">
+    <span>{{ collection.all_products_count }} Products</span>
+  </div>
+  <!-- End founded products -->
+  <!-- Sort and view -->
+  <div class="facets__sort-and-view d-flex align-items">
+    <!-- View -->
+    <details class="facets__details facets__view">
+      <summary class="facets__summary">
+        <div class="summary--view">
+          <span>View</span>
+          {% render 'down-icon' %}
+        </div>
+      </summary>
+      <div class="facets__display display__view">
+        <div class="polygon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="7" viewBox="0 0 13 7" fill="none">
+            <path d="M6.5 0L12.1292 6.75H0.870835L6.5 0Z" fill="black"/>
+          </svg>
+        </div>
+        <fieldset class="facets-wrap parent-wrap"></fieldset>
+        <legend class="visually-hidden">View</legend>
+        <ul class="facets__list list-unstyled no-js-hidden">
+          <li class="list-menu__item facets__item">
+            <label for="View-default" class="facet-radio">
+              <input
+                id="View-default"
+                type="radio"
+                name="view"
+                value="default"
+                class="view-tag"
+              >
+              <span>4 Product</span>
+            </label>
+          </li>
+          <li class="list-menu__item facets__item">
+            <label for="View-grid" class="facet-radio">
+              <input
+                id="View-grid"
+                type="radio"
+                name="view"
+                value="large"
+                class="view-tag"
+              >
+              <span>2 Product</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </details>
+    <!-- End view -->
+    <!-- Sort by -->
+    <details class="facets__details">
+      <summary class="facets__summary">
+        <div class="summary--view">
+          <span>Sort By</span>
+          {% render 'down-icon' %}
+        </div>
+      </summary>
+      <div class="facets__display display__sort">
+        <div class="polygon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="7" viewBox="0 0 13 7" fill="none">
+            <path d="M6.5 0L12.1292 6.75H0.870835L6.5 0Z" fill="black"/>
+          </svg>
+        </div>
+        <fieldset class="facets-wrap parent-wrap">
+          <legend class="visually-hidden">Sort By</legend>
+          <ul class="facets__list list-unstyled no-js-hidden">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            {% for option in collection.sort_options %}
+              <li class="list-menu__item facets__item">
+                <label for="Filter-{{ option.value | escape }}" class="facet-radio">
+                  <input
+                    id="Filter-{{ option.value | escape }}"
+                    type="radio"
+                    name="sort_by"
+                    value="{{ option.value | escape }}"
+                    class="sort-tag"
+                  >
+                  <span>{{ option.name | escape }}</span>
+                </label>
+              </li>
+            {% endfor %}
+          </ul>
+        </fieldset>
+      </div>
+    </details>
+    <!-- End sort by -->
+  </div>
+  <!-- End sort and view -->
+</div>
+<!-- End collection filter -->

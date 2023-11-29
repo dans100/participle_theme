@@ -1,0 +1,49 @@
+<div class="main-container">
+  <!-- Shop breadcrumb -->
+  <div class="shop-breadcrumb">
+    {% render 'breadcrumb' %}
+  </div>
+  <!-- End shop breadcrumb -->
+  <div class="collection">
+    <!-- Items -->
+    <div class="wrap-collection">
+      <div class="collection-items">
+        <!-- Collections row -->
+        <div class="row collections-row">
+          {% for collection in collections %}
+            <!-- Collection -->
+            <div class="col-6 col-lg-3">
+              {% if collection.featured_image != blank %}
+                {% assign collection_image = collection.featured_image %}
+              {% else %}
+                {% assign collection_image = collection.products.first.image %}
+              {% endif %}
+
+              <div class="product-grid-item__image">
+                <a href="{{ collection.url }}">
+                  <img
+                    alt="Image"
+                    data-sizes="auto"
+                    data-srcset="
+                      {{ collection_image | img_url: '3000x' }} 400w,
+                      {{ collection_image | img_url: '3000x' }} 800w
+                    "
+                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    class="lazyload"
+                  >
+                </a>
+              </div>
+              <h1 class="collection__title">{{ collection.title }}</h1>
+            </div>
+            <!-- End collection -->
+          {% else %}
+            <div class="col-12 collection__no-results">No collections</div>
+          {% endfor %}
+        </div>
+        <!-- End collections row -->
+      </div>
+    </div>
+    <!-- End items -->
+  </div>
+  <!-- End collection -->
+</div>

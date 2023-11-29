@@ -1,0 +1,117 @@
+<div class="main-container">
+  <div class="account__d-flex d-flex">
+    <div class="account__left">
+      <ul class="account__nav">
+        <li>
+          <div class="account__nav--icon">
+            {% render 'user-icon' %}
+          </div>
+          <a href="{{ routes.account_addresses_url }}">Address Book</a>
+        </li>
+        <li class="active">
+          <div class="account__nav--icon">
+            {% render 'bag-icon' %}
+          </div>
+          <a href="/account/orders">My Orders</a>
+        </li>
+        <li>
+          <div class="account__nav--icon">
+            {% render 'favourite-icon' %}
+          </div>
+          <a href="/pages/wishlist">My Favorites</a>
+        </li>
+      </ul>
+      <div class="account__left-contact">
+        <h4>Need Help?</h4>
+        <p>Please contact us with any questions you might have. All messages will be answered within 24 hrs.</p>
+        <button><a href="/pages/contact">Leave Message</a></button>
+      </div>
+    </div>
+    <div class="account__right-orders">
+      <h4 class="account__heading">My Orders</h4>
+      <div class="account__content">
+        {% if customer.orders.size != 0 %}
+          {% paginate customer.orders by 10 %}
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Order #</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Ship To</th>
+                    <th scope="col">Order Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in customer.orders %}
+                    {% assign _cart = '/cart/' %}
+                    {% assign reorder_url = '' %}
+                    {% for line_item in order.line_items %}
+                      {%- capture reorder_url -%}
+                          {{ reorder_url | append: _cart | append: line_item.variant_id | append: ':' | append: line_item.quantity | append: ',' | strip }}
+                        {%- endcapture -%}
+                    {% endfor %}
+                    <tr>
+                      <td>{{ order.order_number }}</td>
+                      <td>{{ order.created_at | time_tag: format: 'basic' }}</td>
+                      <td>{{ order.customer.name }}</td>
+                      <td>{{ order.total_price | money }}</td>
+                      <td>{{ order.fulfillment_status_label }}</td>
+                      <td>
+                        <a href="{{ order.customer_url }}">View Order</a>
+                        <a href="{{ reorder_url | strip }}">Reorder</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="orders-mobile-list">
+              {% for order in customer.orders %}
+                {% assign _cart = '/cart/' %}
+                {% assign reorder_url = '' %}
+                {% for line_item in order.line_items %}
+                  {%- capture reorder_url -%}
+                          {{ reorder_url | append: _cart | append: line_item.variant_id | append: ':' | append: line_item.quantity | append: ',' | strip }}
+                        {%- endcapture -%}
+                {% endfor %}
+                <ul>
+                  <li>
+                    <span>Order #:</span><span>{{ order.order_number }}</span>
+                  </li>
+                  <li>
+                    <span>Date:</span><span>{{ order.created_at | time_tag: format: 'basic' }}</span>
+                  </li>
+                  <li>
+                    <span>Ship To:</span><span>{{ order.customer.name }}</span>
+                  </li>
+                  <li>
+                    <span>Order Total:</span><span>{{ order.total_price | money }}</span>
+                  </li>
+                  <li>
+                    <span>Status:</span><span>{{ order.fulfillment_status_label }}</span>
+                  </li>
+                  <li>
+                    <a href="{{ order.customer_url }}">View Order</a>
+                    <a href="{{ reorder_url | strip }}">Reorder</a>
+                  </li>
+                </ul>
+              {% endfor %}
+            </div>
+            <div class="orders-count-and-paginate">
+              <p class="orders-count">{{ customer.orders_count }} Item(s)</p>
+              <div class="orders-paginate">{{ paginate | default_pagination }}</div>
+            </div>
+          {% endpaginate %}
+        {% else %}
+          <div class="empty-orders">
+            <p>You have no orders (yet)</p>
+            <a href="/">Take Me Shopping</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

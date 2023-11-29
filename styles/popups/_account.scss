@@ -1,0 +1,114 @@
+/* ==========================================================================
+   #ACCOUNT POPUP
+   ========================================================================== */
+.account-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    overflow: hidden; 
+    }
+
+.account-popup.active {
+      visibility: visible;
+      pointer-events: auto; 
+    }
+
+.account-popup.active .account-popup__overlay {
+        opacity: 1;
+    }
+
+.account-popup__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+}    
+
+.account-popup__content {
+    position: fixed;
+    z-index: 9999;
+    background: #fff;
+    border: 1px solid #000;
+    width: 205px;
+    height: 197px;
+    top: 130px;
+    right: 304px;
+
+    @media (min-width: 1441px) {
+        right: calc((100% - 1440px) / 2 + 304px );
+    }
+
+    @media (max-width: 1280px) {
+        right: 290px;
+    }
+
+    @media (max-width: 1199px) {
+        right: 235px;
+    }
+}
+
+.account-popup__list {
+    ul {
+        list-style: none;
+        margin-top: 26px;
+
+        li {
+            font-family: Mulish;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 5px 0px;
+
+            a {
+                text-decoration: none;
+                color: #000;
+             
+                span {
+                color: #5E5E5E;
+                }
+            }
+          
+
+            svg {
+                margin-right: 5px;
+                width: 13px;
+                height: 13px;
+            }
+        } 
+    }
+}
+
+.account-popup__polygon {
+    position: absolute;
+    top: -7px;
+    right: 7px;
+}
+
+.logout-button {
+    display: block;
+    margin: 0 auto;
+    width: 180px;
+    font-family: Mulish;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 57px;
+    text-decoration: none;
+    color: #000;
+
+        &:hover {
+            color: #000;
+        }
+}

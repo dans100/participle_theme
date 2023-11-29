@@ -1,0 +1,174 @@
+<!-- Footer -->
+<footer class="footer">
+  <!-- Footer container -->
+  <div class="footer__container">
+    <!-- Footer navigation -->
+    <div class="footer__navigation">
+      <!-- First column -->
+      <div class="d-none d-lg-block footer__first-column">
+        <!-- Footer logo -->
+        <h5 class="footer__logo">{{ section.settings.logo_text }}</h5>
+        <!-- End footer logo -->
+        <!-- Footer address -->
+        <ul class="footer__address">
+          <li>{{ section.settings.contact_address }}</li>
+        </ul>
+        <!-- End footer address -->
+        <!-- Footer contact -->
+        <a class="footer__contact" href="/pages/contact">
+          {{- section.settings.contact_link_title -}}
+        </a>
+        <!-- End footer contact -->
+      </div>
+      <!-- End first column -->
+      <!-- Second column -->
+      <div class="footer__second-column">
+        <!-- Footer heading -->
+        <h6 class="footer__heading">{{ section.settings.faqs_menu_title }}</h6>
+        <!-- End footer heading -->
+        <!-- Footer menu -->
+        <ul class="footer__menu">
+          {% for link in linklists[section.settings.faqs_linklist].links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        <!-- End footer menu -->
+      </div>
+      <!-- End second column -->
+      <!-- Third column -->
+      <div class="footer__third-column">
+        <!-- Footer heading -->
+        <h6 class="footer__heading">{{ section.settings.socials_menu_title }}</h6>
+        <!-- End footer heading -->
+        <!-- Footer menu -->
+        <ul class="footer__menu">
+          {% if section.settings.instagram_url != blank %}
+            <li>
+              <a href="{{ section.settings.instagram_url }}">Instagram</a>
+            </li>
+          {% endif %}
+          {% if section.settings.facebook_url != blank %}
+            <li>
+              <a href="{{ section.settings.facebook_url }}">Facebook</a>
+            </li>
+          {% endif %}
+          {% if section.settings.twitter_url != blank %}
+            <li>
+              <a href="{{ section.settings.twitter_url }}">Twitter</a>
+            </li>
+          {% endif %}
+          {% if section.settings.pinterest_url != blank %}
+            <li>
+              <a href="{{ section.settings.pinterest_url }}">Pinterest</a>
+            </li>
+          {% endif %}
+        </ul>
+        <!-- End footer menu -->
+      </div>
+      <!-- End third column -->
+    </div>
+    <!-- End footer navigation -->
+    <!-- Footer newsletter -->
+    <form
+      action="{{ section.settings.newsletter_mailchimp_action }}"
+      method="post"
+      class="footer__newsletter"
+      target="_blank"
+    >
+      <!-- Footer newsletter input -->
+      <input
+        type="email"
+        required="required"
+        class="footer__newsletter-input"
+        placeholder="{{ section.settings.newsletter_placeholder}}"
+      >
+      <!-- End footer newsletter input -->
+      <!-- Footer newsletter button -->
+      <button type="submit" class="footer__newsletter-button">{{ section.settings.newsletter_submit }}</button>
+      <!-- End footer newsletter button -->
+    </form>
+    <!-- End footer newsletter -->
+  </div>
+  <!-- End footer container -->
+</footer>
+<!-- End footer -->
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_address",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "contact_link",
+      "label": "Contact url"
+    },
+    {
+      "type": "text",
+      "id": "contact_link_title",
+      "label": "Contact title"
+    },
+    {
+      "type": "text",
+      "id": "faqs_menu_title",
+      "label": "Faqs menu title"
+    },
+    {
+      "type": "link_list",
+      "id": "faqs_linklist",
+      "label": "Faqs menu"
+    },
+    {
+      "type": "text",
+      "id": "socials_menu_title",
+      "label": "Social media"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram url"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook url"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "Twitter url"
+    },
+    {
+      "type": "url",
+      "id": "pinterest_url",
+      "label": "Pinterest url"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_mailchimp_action",
+      "label": "Newsletter mailchimp action"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter placeholder"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_submit",
+      "label": "Newsletter submit"
+    }
+  ]
+}
+{% endschema %}

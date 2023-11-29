@@ -1,0 +1,87 @@
+<div class="banners">
+  <div class="product__category">
+    <h1>{{ section.settings.product_category }}</h1>
+    <a href="{{ section.settings.product_category_url }}">
+      {{- section.settings.product_category_label -}}
+    </a>
+  </div>
+  <div class="product__row">
+    {% for block in section.blocks %}
+      <div class="featured-product">
+        <div class="featured-product__image">
+          <img
+            src="{{ block.settings.image | img_url: '1000x' }}"
+            alt="Image"
+            class="lazyload"
+          >
+        </div>
+        <h1>{{ block.settings.title }}</h1>
+        <a href="{{ block.settings.button_url }}">
+          {{- block.settings.button_label -}}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banners",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_category",
+      "label": "Product Category"
+    },
+    {
+      "type": "link_list",
+      "id": "product_category_url",
+      "label": "Category url"
+    },
+    {
+      "type": "text",
+      "id": "product_category_label",
+      "label": "Category label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "link_list",
+          "id": "button_url",
+          "label": "Button url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banners",
+      "category": "Banners",
+      "blocks": [
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

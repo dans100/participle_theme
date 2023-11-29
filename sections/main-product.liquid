@@ -1,0 +1,309 @@
+{%- assign current_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+{%- assign featured_image = current_variant.image | default: product.featured_image -%}
+{%- assign featured_image_alt = current_variant.image.alt | default: product.featured_image.alt -%}
+
+<div class="main-container">
+  <!-- Shop breadcrumb -->
+  <div class="shop-breadcrumb">
+    {% render 'breadcrumb' %}
+  </div>
+  <!-- End shop breadcrumb -->
+  <!-- Product mobile gallery -->
+  <div class="product__mobile-gallery js-product-mobile-gallery" data-product-id="{{ product.id }}">
+    {%- for image in product.images -%}
+      <div class="mobile-product-image">
+        <p>
+          <a href="{{ image.src | img_url: '2500x' }}">
+            <img
+              alt="Image"
+              src="{{ image.src | img_url: '2500x' }}"
+            >
+          </a>
+        </p>
+      </div>
+    {%- endfor -%}
+    {% if product.metafields.my_fields.product_video == true %}
+      <div class="mobile-product-image">
+        <div class="product__video">
+          {{ product.metafields.my_fields.product_video_content }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <!-- End product mobile gallery -->
+  <!-- Product -->
+  <div class="product js-product" data-product-id="{{ product.id }}">
+    <!-- Product main -->
+    <div class="product__main d-flex">
+      <!-- Product thumbnails -->
+      <ul class="product__thumbnails">
+        {%- for image in product.images -%}
+          {% assign group = 1 %}
+          {% if forloop.index > 6 %}{% assign group = 2 %}{% endif %}
+          {% if forloop.index > 12 %}{% assign group = 3 %}{% endif %}
+          {% if forloop.index > 18 %}{% assign group = 4 %}{% endif %}
+          {% if forloop.index > 24 %}{% assign group = 5 %}{% endif %}
+          {% if forloop.index > 30 %}{% assign group = 6 %}{% endif %}
+          {% if forloop.index > 36 %}{% assign group = 7 %}{% endif %}
+          {% if forloop.index > 42 %}{% assign group = 8 %}{% endif %}
+          {% if forloop.index > 48 %}{% assign group = 9 %}{% endif %}
+          {% if forloop.index > 54 %}{% assign group = 10 %}{% endif %}
+          <li class="{% if forloop.index > 6 %}d-none{% endif %} js-product-thumnail-slider" data-group="{{ group }}">
+            <a
+              href="#"
+              class="{% if forloop.index == 1 %}active{% endif %} js-product-thumbnail"
+              data-id="{{ forloop.index }}"
+            >
+              <img
+                alt="Image"
+                src="{{ image.src | img_url: '2500x' }}"
+              >
+            </a>
+          </li>
+        {%- endfor -%}
+        {% if product.metafields.my_fields.product_video == true %}
+          <li class="{% if group > 1 %}d-none{% endif %} js-product-thumnail-slider" data-group="{{ group }}">
+            <a href="#" class="js-product-thumbnail" data-id="150">
+              <i class="lnir lnir-play"></i>
+              <img alt="Image" src="{{ product.metafields.my_fields.product_video_image | img_url: '300x' }}">
+            </a>
+          </li>
+        {% endif %}
+        {% if group > 1 %}
+          <li class="product-thumbnails__next">
+            <p class="js-product-thumbnails-prev" data-groups="{{ group }}" data-current-group="1"></p>
+            <p class="js-product-thumbnails-next" data-groups="{{ group }}" data-current-group="1"></p>
+          </li>
+        {% endif %}
+      </ul>
+      <!-- End product thumbnails -->
+      <!-- Product main image -->
+      <ul class="product__main-image js-popup-gallery">
+        {%- for image in product.images -%}
+          <li
+            class="{% if forloop.index == 1 or forloop.index == 2 %}active{% endif %} js-product-main-image"
+            data-id="{{ forloop.index }}"
+          >
+            <a href="{{ image.src | img_url: '2500x' }}">
+              <img
+                alt="Image"
+                src="{{ image.src | img_url: '2500x' }}"
+                data-zoomed="{{ image.src | img_url: '2500x' }}"
+                class="js-zoomit"
+              >
+            </a>
+          </li>
+        {%- endfor -%}
+        {% if product.metafields.my_fields.product_video == true %}
+          <li class="js-product-main-image" data-id="150">
+            <div class="product__video">
+              {{ product.metafields.my_fields.product_video_content }}
+            </div>
+          </li>
+        {% endif %}
+      </ul>
+      <!-- End product main image -->
+      <!-- Product right -->
+      <div class="product__right">
+        {% form 'product', product, class: form_classes, novalidate: 'novalidate', data-product-form: '' %}
+          <!-- Product heading -->
+          <div class="product__heading">
+            <!-- Wishlist -->
+            <div>
+              <a
+                href="{{ settings.product_wishlist_page.url }}"
+                class="js-add-to-wishlist"
+                data-product-handle="{{ product.handle }}"
+                data-added="Added to wishlist"
+              >
+                {%- render 'favourite-icon' -%}
+              </a>
+            </div>
+            <!-- End wishlist -->
+            <div class="product-title-and-price">
+              <!-- Product title -->
+              <h1 class="product__title js-product-title">{{ product.title }}</h1>
+              <!-- End product title -->
+              <!-- Product price -->
+              <div class="product__price">
+                {%- assign compare_at_price = current_variant.compare_at_price -%}
+                {%- assign price = current_variant.price -%}
+                {%- assign money_price = price | money -%}
+                {%- if compare_at_price > price -%}
+                  <span class="product-price__default d-none js-price-default"></span>
+                  <span class="product-price__new js-price-new">{{ product.price | money }}</span>
+                  <span class="product-price__old js-price-old">{{ product.compare_at_price | money }}</span>
+                {% else %}
+                  <span class="product-price__default js-price-default">{{ money_price }}</span>
+                  <span class="product-price__new d-none js-price-new"></span>
+                  <span class="product-price__old d-none js-price-old"></span>
+                {% endif %}
+              </div>
+              <!-- End product price -->
+            </div>
+          </div>
+          <!-- End product heading -->
+          <div class="product-content-and-variants">
+            <!-- Product content -->
+            <div class="product__content">
+              {% if product.metafields.custom.short_description != ''
+                and product.metafields.custom.short_description != blank
+              %}
+                <!-- Product description -->
+                <div class="product__description">
+                  {{ product.metafields.custom.short_description }}
+                </div>
+                <!-- End product description -->
+              {% endif %}
+              {% if settings.product_information == true %}
+                <!-- Product information -->
+                <ul class="product__information">
+                  {% if product.metafields.custom.material != '' and product.metafields.custom.material != blank %}
+                    <li>{{ product.metafields.custom.material }}</li>
+                  {% endif %}
+                  {% if product.vendor != '' and product.vendor != blank %}
+                    <li>{{ product.vendor }}</li>
+                  {% endif %}
+                  {% if product.metafields.custom.care_instruction != ''
+                    and product.metafields.custom.care_instruction != blank
+                  %}
+                    <li>{{ product.metafields.custom.care_instruction }}</li>
+                  {% endif %}
+                </ul>
+                <!-- End product information -->
+              {% endif %}
+              {% if settings.product_color_and_feel == true %}
+                <!-- Product color and feel -->
+                <div class="product-color-and-feel">
+                  {% if product.metafields.custom.color != '' and product.metafields.custom.color != blank %}
+                    <p>Color: {{ product.metafields.custom.color }}</p>
+                  {% endif %}
+                  {% if product.metafields.custom.feel != '' and product.metafields.custom.feel != blank %}
+                    <p>Feel: {{ product.metafields.custom.feel }}</p>
+                  {% endif %}
+                </div>
+                <!-- End product color and feel -->
+              {% endif %}
+            </div>
+            <!-- End product content -->
+            <div class="product-variants-and-action">
+              <!-- Product options -->
+              <div class="product__options">
+                {% for option in product.options_with_values %}
+                  {% if settings.product_custom_size == true %}
+                    <p class="product__options--name">Size <span>*</span></p>
+                    <!-- Product available sizes -->
+                    <ul class="product__available-sizes" data-option="option{{ forloop.index }}">
+                      {% for value in option.values %}
+                        <li
+                          {% if option.selected_value == value %}
+                            class="active"
+                          {% endif %}
+                        >
+                          <a
+                            href="#"
+                            class="js-product-size"
+                            data-product-id="{{ product.id }}"
+                            data-value="{{ value }}"
+                          >
+                            {{ value }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                    <!-- End product available sizes -->
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <!-- End product options -->
+              <!-- Product variants -->
+              <div id="product-variants" class="d-none">
+                <select name="id" id="product-select-{{ product.id }}">
+                  {%- for variant in product.variants -%}
+                    {%- if variant.available -%}
+                      <option
+                        {% if variant == product.selected_or_first_available_variant %}
+                          selected="selected"
+                        {% endif %}
+                        value="{{ variant.id }}"
+                      >
+                        {{- variant.title -}}
+                      </option>
+                    {%- else -%}
+                      <option disabled="disabled">{{ variant.title }} - Sold out</option>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </select>
+              </div>
+              <!-- End product variants -->
+              {% if product.compare_at_price > product.price %}
+                <!-- Product price save -->
+                <p class="product-price__save"><span></span>% off the original price</p>
+                <!-- End product price save -->
+              {% endif %}
+              <div class="shipping-information">
+                <span>{% render 'ship-icon' %}</span>{{ settings.ship_information }}
+                <a href="{{ settings.ship_url }}">details</a>
+              </div>
+              <!-- Add to cart -->
+              <div class="product__add-to-cart">
+                <a href="#" class="js-add-to-cart" data-product-id="{{ product.id }}">Add to Bag</a>
+              </div>
+              <!-- End add to cart -->
+            </div>
+          </div>
+        {% endform %}
+      </div>
+      <!-- End product right -->
+    </div>
+    <!-- End product main -->
+  </div>
+  <!-- End product -->
+  <div class="complete-your-outfit">
+    <!-- Title -->
+    <h4>{{ settings.title }}</h4>
+    <!-- End title -->
+    <div class="row">
+      {% assign collection = collections[settings.collection] %}
+      {% for product in collection.products limit: 4 %}
+        <div class="col-6 col-md-5 col-xl-3">
+          {% render 'product-grid-item', product: product %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{%- unless product == empty -%}
+  <script type="application/json" id="ProductJson{{ product.id }}">
+    {{- product | json -}}
+  </script>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "product_information",
+      "label": "Product information"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_color_and_feel",
+      "label": "Product information"
+    },
+    {
+      "type": "text",
+      "id": "ship_information",
+      "label": "Ship information"
+    },
+    {
+      "type": "url",
+      "id": "ship_url",
+      "label": "Ship information"
+    }
+  ]
+}
+{% endschema %}

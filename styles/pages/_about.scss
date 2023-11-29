@@ -1,0 +1,37 @@
+.about-page__title {
+    font-family: Ovo;
+    max-width: 750px;
+    padding: 90px 0px 30px 0px;
+    margin: 0px auto;
+    text-align: center;
+    font-size: 48px;
+ 
+    @media (max-width: 1098px) {
+       font-size: 40px;
+    }
+ 
+    @media (max-width: 991px) {
+       padding: 60px 0px 25px 0px;
+       font-size: 26px;
+    }
+}
+
+.about-page__description {
+    font-family: Mulish;
+    padding: 0px 0px 80px 0px;
+    max-width: 750px;
+    margin: 0px auto;
+    text-align: center;
+ 
+    @media (max-width: 991px) {
+       padding: 0px 0px 50px 0px;
+    }
+ }
+
+ .about-page__image {
+
+    img {
+       display: block;
+       width: 100%;
+    }
+ }
